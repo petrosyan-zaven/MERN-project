@@ -24,3 +24,13 @@ app.listen(PORT, () => {
     
     console.log(`Server runinig on port ${PORT}!`);
 })
+
+app.use((err, req, res, next) => {
+    const statusCode = err.statusCode || 500;
+    const message = err.mesage || 'Internal Server Error';
+    return res.status(statusCode).json({
+        success: false,
+        statusCode,
+        message,
+    });
+})
